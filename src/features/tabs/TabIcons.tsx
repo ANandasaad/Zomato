@@ -1,9 +1,8 @@
-import {View, Text, ViewStyle, TextStyle} from 'react-native';
+import {View, Text, ViewStyle, TextStyle, Image} from 'react-native';
 import React, {FC, memo} from 'react';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {Colors} from '../../../unistyles/Constants';
 import CustomText from '@components/global/CustomText';
-import {Image} from 'react-native-reanimated/lib/typescript/Animated';
 import Delivery from '../../assets/tabicons/delivery.png';
 import DeliveryFocused from '../../assets/tabicons/delivery_focused.png';
 import ReorderFocused from '../../assets/tabicons/reorder_focused.png';
@@ -12,6 +11,7 @@ import LiveFocused from '../../assets/tabicons/live_focused.png';
 import Live from '../../assets/tabicons/live.png';
 import Dining from '../../assets/tabicons/dining.png';
 import DiningFocused from '../../assets/tabicons/dining_focused.png';
+import {useAppSelector} from '@states/reduxHook';
 
 interface TabProps {
   name: string;
@@ -65,6 +65,7 @@ export const TabIcons: FC<TabProps> = memo(({name}) => {
 });
 
 export const TabIconFocused: FC<TabProps> = memo(({name}) => {
+  const isVegMode = useAppSelector(state => state.user.isVegMode);
   return (
     <View style={tabStyles}>
       <Image
@@ -77,7 +78,17 @@ export const TabIconFocused: FC<TabProps> = memo(({name}) => {
             ? DiningFocused
             : LiveFocused
         }
-        style={[styles]}
+        style={[
+          styles,
+          {
+            tintColor:
+              name === 'Live'
+                ? undefined
+                : isVegMode
+                ? Colors.active
+                : Colors.primary,
+          },
+        ]}
         resizeMode={'contain'}
       />
       <CustomText style={textStyleActive}>{name}</CustomText>
