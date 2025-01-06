@@ -28,22 +28,22 @@ const LocationHeader: FC = () => {
             iconFamily="MaterialCommunityIcons"
             size={32}
           />
-        </View>
-        <View>
-          <TouchableOpacity style={styles.flexRow}>
-            <CustomText variant="h6" color={textColor}>
-              Noida Sector 104
+          <View>
+            <TouchableOpacity style={styles.flexRow}>
+              <CustomText variant="h6" color={textColor}>
+                Noida Sector 104
+              </CustomText>
+              <Icons
+                name="chevron-down"
+                color={textColor}
+                iconFamily="MaterialCommunityIcons"
+                size={20}
+              />
+            </TouchableOpacity>
+            <CustomText variant="h6" color={textColor} fontFamily="Okra-Medium">
+              Lucknow
             </CustomText>
-            <Icons
-              name="chevron-down"
-              color={textColor}
-              iconFamily="MaterialCommunityIcons"
-              size={20}
-            />
-          </TouchableOpacity>
-          <CustomText variant="h6" color={textColor} fontFamily="Okra-Medium">
-            Lucknow
-          </CustomText>
+          </View>
         </View>
 
         <View style={styles.flexRowGap}>

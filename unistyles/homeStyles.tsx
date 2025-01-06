@@ -20,11 +20,13 @@ export const homeStyles = createStyleSheet(({colors, device, border}) => ({
   animatedText: {
     fontSize: RFValue(10.5),
     fontFamily: 'Okra-Bold',
+    color: 'white',
   },
   animatedSubText: {
     fontSize: RFValue(7),
     lineHeight: 9,
     fontFamily: 'Okra-Bold',
+    color: 'white',
   },
   exploreContainer: {
     marginVertical: 10,
@@ -33,7 +35,7 @@ export const homeStyles = createStyleSheet(({colors, device, border}) => ({
     width: device.width,
     backgroundColor: '#CC152D',
     height:
-      Platform.OS === 'android' ? device.height * 0.54 : device.height * 0.7,
+      Platform.OS === 'android' ? device.height * 0.54 : device.height * 0.6,
     justifyContent: 'center',
     position: 'absolute',
     zIndex: -3,
@@ -41,7 +43,7 @@ export const homeStyles = createStyleSheet(({colors, device, border}) => ({
   },
   lottie: {
     width: '100%',
-    bottom: -1,
+    bottom: -80,
     height: device.height * 0.7,
   },
   rollingText: {
