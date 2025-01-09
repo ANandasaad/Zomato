@@ -50,6 +50,7 @@ const CustomTabBar: FC<BottomTabBarProps> = props => {
         style={[
           styles.tabBarContainer,
           animatedStyle,
+
           {
             paddingBottom: bottom.bottom,
             backgroundColor: isLiveTabFocused ? Colors.dark : Colors.background,
