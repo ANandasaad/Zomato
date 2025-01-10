@@ -12,7 +12,9 @@ import RestaurantList from './RestaurantList';
 import {useStyles} from 'react-native-unistyles';
 import {restaurantStyles} from '../../../unistyles/restuarantStyles';
 import {useSharedState} from '@features/tabs/SharedContext';
-import {useAnimatedStyle, withTiming} from 'react-native-reanimated';
+import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated';
+import BackToTopButton from '@components/ui/BackToTopButton';
+import SortingAndFilter from '@components/home/SortingAndFilter';
 
 const sectionData = [
   {
@@ -26,6 +28,14 @@ const sectionData = [
     renderItem: () => <RestaurantList />,
   },
 ];
+const filtersOptions: Record<string, {label: string}> = {
+  rating: {label: 'Rating'},
+  distance: {label: 'Distance'},
+  popularity: {label: 'Popularity'},
+  deliveryTime: {label: 'Delivery Time'},
+  nearest: {label: 'Nearest'},
+};
+
 const MainList: FC = () => {
   const {styles} = useStyles(restaurantStyles);
   const {scrollToTop, scrollY, scrollYGlobal} = useSharedState();
@@ -96,11 +106,28 @@ const MainList: FC = () => {
   };
   return (
     <>
+      <Animated.View style={[styles.backToTopButton, backToTopStyle]}>
+        <BackToTopButton onPress={handleScrollTop} />
+      </Animated.View>
       <SectionList
         sections={sectionData}
         overScrollMode="always"
         onScroll={handleScroll}
         bounces={false}
+        ref={sectionListRef}
+        renderSectionHeader={({section}) => {
+          if (section.title !== 'Restaurants') {
+            return null;
+          }
+          return (
+            <Animated.View
+              style={[
+                isRestaurantVisible || isNearEnd ? styles.shadowBottom : null,
+              ]}>
+              <SortingAndFilter menuTitle="Sort" options={filtersOptions} />
+            </Animated.View>
+          );
+        }}
         scrollEventThrottle={16}
         nestedScrollEnabled={true}
         showsVerticalScrollIndicator={false}
