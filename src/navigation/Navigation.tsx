@@ -6,6 +6,7 @@ import {FC} from 'react';
 import {navigationRef} from '../../utils/NavigationUtils';
 import UserBottomTab from '@features/tabs/UserBottomTab';
 import AnimatedTabs from '@features/tabs/AnimatedTabs';
+import RestaurantScreen from '@features/restaurants/RestaurantScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation: FC = () => {
@@ -15,6 +16,7 @@ const Navigation: FC = () => {
         initialRouteName="SplashScreen"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
+        <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
         <Stack.Screen
           name="Login"
           component={Login}

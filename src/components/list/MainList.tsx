@@ -15,6 +15,7 @@ import {useSharedState} from '@features/tabs/SharedContext';
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import BackToTopButton from '@components/ui/BackToTopButton';
 import SortingAndFilter from '@components/home/SortingAndFilter';
+import {filtersOption} from '../../../utils/dummyData';
 
 const sectionData = [
   {
@@ -28,13 +29,6 @@ const sectionData = [
     renderItem: () => <RestaurantList />,
   },
 ];
-const filtersOptions: Record<string, {label: string}> = {
-  rating: {label: 'Rating'},
-  distance: {label: 'Distance'},
-  popularity: {label: 'Popularity'},
-  deliveryTime: {label: 'Delivery Time'},
-  nearest: {label: 'Nearest'},
-};
 
 const MainList: FC = () => {
   const {styles} = useStyles(restaurantStyles);
@@ -124,7 +118,7 @@ const MainList: FC = () => {
               style={[
                 isRestaurantVisible || isNearEnd ? styles.shadowBottom : null,
               ]}>
-              <SortingAndFilter menuTitle="Sort" options={filtersOptions} />
+              <SortingAndFilter menuTitle="Sort" options={filtersOption} />
             </Animated.View>
           );
         }}

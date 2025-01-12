@@ -8,7 +8,7 @@ import CustomText from '@components/global/CustomText';
 
 const SortingAndFilter: FC<{
   menuTitle: string;
-  options: Record<string, {label: string}>;
+  options: Record<string, any>;
 }> = ({menuTitle, options}) => {
   const {styles} = useStyles(filtertyles);
   return (
@@ -35,11 +35,11 @@ const SortingAndFilter: FC<{
           color={Colors.text}
         />
       </TouchableOpacity>
-      {Object.entries(options)?.map(([key, item], index: number) => {
+      {options?.map((item: any, index: any) => {
         return (
           <TouchableOpacity key={index} style={styles.filterItem}>
             <CustomText fontSize={11} fontFamily="Okra-Medium">
-              {key}
+              {item}
             </CustomText>
           </TouchableOpacity>
         );

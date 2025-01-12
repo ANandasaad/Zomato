@@ -6,6 +6,8 @@ import ScalePress from '@components/ui/ScalePress';
 import {navigate} from '../../../utils/NavigationUtils';
 import CustomText from '@components/global/CustomText';
 import StarRating from '@components/ui/StarRating';
+import DottedLine from '@components/ui/DottedLine';
+import Icons from '@components/global/Icons';
 
 const RestaurantCard: FC<{item: any}> = ({item}) => {
   const {styles} = useStyles(restaurantStyles);
@@ -28,7 +30,7 @@ const RestaurantCard: FC<{item: any}> = ({item}) => {
                 fontFamily="Okra-Medium"
                 fontSize={10}
                 numberOfLines={1}>
-                {item?.time} • {item?.distance} • $150 for one
+                {item?.time} • {item?.distance} • ₹150 for one
               </CustomText>
               <CustomText
                 variant="h6"
@@ -39,6 +41,22 @@ const RestaurantCard: FC<{item: any}> = ({item}) => {
               </CustomText>
             </View>
             <StarRating rating={item?.rating} />
+          </View>
+          <DottedLine />
+          <View style={{flexDirection: 'row', alignItems: 'center', gap: 5}}>
+            <Icons
+              name="brightness-percent"
+              iconFamily="MaterialCommunityIcons"
+              color="red"
+              size={20}
+            />
+            {item?.discount && (
+              <CustomText>
+                {' '}
+                {item?.discount}{' '}
+                {item?.discountAmount && `• ${item?.discountAmount}`}
+              </CustomText>
+            )}
           </View>
         </View>
       </View>
