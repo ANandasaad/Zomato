@@ -1,7 +1,15 @@
-import {View, Text, StyleSheet, Modal, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import React, {forwardRef, useImperativeHandle, useState} from 'react';
 import {screenHeight} from '../../../unistyles/Constants';
 import Icons from '@components/global/Icons';
+import {BlurView} from '@react-native-community/blur';
 
 const CustomModal = forwardRef((props: any, ref: any) => {
   const [visible, setVisible] = useState(false);
@@ -23,6 +31,15 @@ const CustomModal = forwardRef((props: any, ref: any) => {
       animationType="slide"
       onRequestClose={() => setVisible(false)}>
       <View style={styles.modalContainer}>
+        {Platform.OS === 'ios' && (
+          <BlurView
+            style={StyleSheet.absoluteFill}
+            blurType="light"
+            blurAmount={10}
+            reducedTransparencyFallbackColor="white"
+          />
+        )}
+
         <View style={styles.contentContainer}>
           <TouchableOpacity
             style={styles.closeIcon}
@@ -44,12 +61,14 @@ const CustomModal = forwardRef((props: any, ref: any) => {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
+
     justifyContent: 'flex-end',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   contentContainer: {
     width: '100%',
     maxHeight: screenHeight * 0.7,
+
     minHeight: 150,
     borderRadius: 10,
   },

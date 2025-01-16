@@ -15,6 +15,7 @@ import {Colors} from '../../../unistyles/Constants';
 import {RFValue} from 'react-native-responsive-fontsize';
 import AnimatedNumbers from 'react-native-animated-numbers';
 import CustomModal from '@components/modal/CustomModal';
+import AddItemModal from '../modal/AddItemModal';
 
 const AddButton: FC<{item: any; restaurant: any}> = ({item, restaurant}) => {
   const dispatch = useAppDispatch();
@@ -25,9 +26,11 @@ const AddButton: FC<{item: any; restaurant: any}> = ({item, restaurant}) => {
   );
   const openAddModal = () => {
     modelRef.current?.openModal(
-      <View>
-        <Text>Open Modal</Text>
-      </View>,
+      <AddItemModal
+        item={item}
+        restaurant={restaurant}
+        onClose={modelRef.current?.closeModal()}
+      />,
     );
   };
   const addCartHandler = useCallback(() => {
