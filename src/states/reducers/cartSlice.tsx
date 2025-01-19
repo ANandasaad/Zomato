@@ -101,6 +101,66 @@ export const cartSlice = createSlice({
         );
       }
     },
+    addCustomizableItem: (
+      state,
+      action: PayloadAction<{
+        restaurant: RestaurantDetails;
+        item: CartItem;
+        customization: {
+          quantity: number;
+          price: number;
+          customizationOptions: any[];
+        };
+      }>,
+    ) => {
+      const {restaurant, item, customization} = action.payload;
+      const existingRestaurants = state.carts.find(
+        cart => cart.restaurants.id === restaurant.id,
+      );
+      if (existingRestaurants) {
+        const existingItem = existingRestaurants?.items.find(
+          cartItem => cartItem.id === item.id,
+        ) as any;
+        if (existingItem) {
+        } else {
+          existingRestaurants?.items?.push({
+            ...item,
+            quantity: customization.quantity,
+            cartPrice: customization.price,
+            customizations: [
+              {
+                id: `c1`,
+                ...customization,
+                quantity: customization?.quantity,
+                cartPrice: customization?.price,
+                price: customization?.price / customization?.quantity,
+              },
+            ],
+          });
+        }
+      } else {
+        const newCustomizationId = `c1`;
+        state.carts.push({
+          restaurants: restaurant,
+          items: [
+            {
+              ...item,
+              quantity: customization.quantity,
+              cartPrice: customization.price,
+              customizations: [
+                {
+                  id: newCustomizationId,
+                  ...customization,
+                  quantity: customization?.quantity,
+                  cartPrice: customization?.price,
+                  price: customization?.price / customization?.quantity,
+                },
+              ],
+            },
+          ],
+        });
+      }
+    },
   },
 });
 export const {addCartItem, removeCartItem} = cartSlice.actions;
