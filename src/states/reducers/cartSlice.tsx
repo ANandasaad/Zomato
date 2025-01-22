@@ -122,6 +122,33 @@ export const cartSlice = createSlice({
           cartItem => cartItem.id === item.id,
         ) as any;
         if (existingItem) {
+          const existingCustomizationIndex =
+            existingItem?.customizations?.findIndex(
+              (cust: any) =>
+                JSON.stringify(cust.customizationOptions) ===
+                JSON.stringify(customization?.customizationOptions),
+            );
+          if (
+            existingCustomizationIndex !== -1 &&
+            existingCustomizationIndex !== undefined
+          ) {
+            const existingCustomization =
+              existingItem?.customizations[existingCustomizationIndex];
+            if (existingCustomization) {
+              existingCustomization.quantity += customization.quantity;
+              existingCustomization.cartPrice += customization.price;
+            }
+          } else {
+            const newCustomizationId =
+              `c${existingItem?.customizations?.length || 0}` + 1;
+            existingItem?.customizations?.push({
+              id: newCustomizationId,
+              ...customization,
+              quantity: customization?.quantity,
+              cartPrice: customization?.price,
+              price: customization?.price / customization?.quantity,
+            });
+          }
         } else {
           existingRestaurants?.items?.push({
             ...item,
@@ -129,7 +156,7 @@ export const cartSlice = createSlice({
             cartPrice: customization.price,
             customizations: [
               {
-                id: `c1`,
+                id: `c2`,
                 ...customization,
                 quantity: customization?.quantity,
                 cartPrice: customization?.price,
@@ -137,6 +164,12 @@ export const cartSlice = createSlice({
               },
             ],
           });
+
+          if (existingItem) {
+            existingItem.quantity += customization.quantity;
+            existingItem.cartPrice =
+              (existingItem.cartPrice || 0) + customization.price;
+          }
         }
       } else {
         const newCustomizationId = `c1`;
@@ -163,7 +196,8 @@ export const cartSlice = createSlice({
     },
   },
 });
-export const {addCartItem, removeCartItem} = cartSlice.actions;
+export const {addCartItem, removeCartItem, addCustomizableItem} =
+  cartSlice.actions;
 export const selectCart = (state: RootState) => state.cart;
 export const selectRestaurantCartItem = (
   restaurantId: string,

@@ -17,6 +17,7 @@ import ScalePress from '@components/ui/ScalePress';
 import AnimatedNumbers from 'react-native-animated-numbers';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {useAppDispatch} from '@states/reduxHook';
+import {addCustomizableItem} from '@states/reducers/cartSlice';
 
 function transformSelectedOptions(
   selectedOptions: any,
@@ -71,11 +72,11 @@ const AddItemModal: FC<{item: any; restaurant: any; onClose: () => void}> = ({
       item?.customizationOptions,
     ).sort((a, b) => a.type.localeCompare(b.type));
     const customizationData = {
-      restaurants: restaurant,
-      items: item,
+      restaurant: restaurant,
+      item: item,
       customization: {
-        quantity: data?.quantity,
-        price: data?.price,
+        quantity: Number(data?.quantity),
+        price: Number(data?.price),
         customizationOptions: customizationOptions,
       },
     };
