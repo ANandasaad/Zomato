@@ -18,6 +18,7 @@ import AnimatedNumbers from 'react-native-animated-numbers';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {useAppDispatch} from '@states/reduxHook';
 import {addCustomizableItem} from '@states/reducers/cartSlice';
+import ImageCard from '@components/list/ImageCard';
 
 function transformSelectedOptions(
   selectedOptions: any,
@@ -36,11 +37,12 @@ function transformSelectedOptions(
     };
   });
 }
-const AddItemModal: FC<{item: any; restaurant: any; onClose: () => void}> = ({
-  item,
-  restaurant,
-  onClose,
-}) => {
+const AddItemModal: FC<{
+  item: any;
+  restaurant: any;
+  onClose: () => void;
+  typeImage?: boolean;
+}> = ({item, restaurant, onClose, typeImage}) => {
   const {styles} = useStyles(modelStyles);
   const [data, setData] = useState({
     quantity: 1,
@@ -142,33 +144,45 @@ const AddItemModal: FC<{item: any; restaurant: any; onClose: () => void}> = ({
     }));
   }, [item]);
   return (
-    <View>
-      <View style={styles.headerContainer}>
-        <View style={styles.flexRowGap}>
-          <Image source={{uri: item?.image}} style={styles.headerImage} />
-          <CustomText fontFamily="Okra-Medium" fontSize={12}>
-            {item?.name}
-          </CustomText>
+    <ScrollView>
+      {typeImage && <ImageCard item={item} />}
+
+      {typeImage ? (
+        <></>
+      ) : (
+        <View style={styles.headerContainer}>
+          <View style={styles.flexRowGap}>
+            {typeImage ? (
+              <></>
+            ) : (
+              <Image source={{uri: item?.image}} style={styles.headerImage} />
+            )}
+            <CustomText fontFamily="Okra-Medium" fontSize={12}>
+              {item?.name}
+            </CustomText>
+          </View>
+
+          <View style={styles.flexRowGap}>
+            <TouchableOpacity style={styles.icon}>
+              <Icons
+                iconFamily="Ionicons"
+                name="bookmark-outline"
+                size={16}
+                color={Colors.primary}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.icon}>
+              <Icons
+                iconFamily="Ionicons"
+                name="share-outline"
+                size={16}
+                color={Colors.primary}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.flexRowGap}>
-          <TouchableOpacity style={styles.icon}>
-            <Icons
-              iconFamily="Ionicons"
-              name="bookmark-outline"
-              size={16}
-              color={Colors.primary}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
-            <Icons
-              iconFamily="Ionicons"
-              name="share-outline"
-              size={16}
-              color={Colors.primary}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      )}
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {item?.customizationOptions?.map((customization: any, index: any) => {
           return (
@@ -255,7 +269,7 @@ const AddItemModal: FC<{item: any; restaurant: any; onClose: () => void}> = ({
         </TouchableOpacity>
         <SafeAreaView />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

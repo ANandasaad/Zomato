@@ -1,3 +1,10 @@
+
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+# Add this at the top of your Podfile
+require_relative '../node_modules/react-native-permissions/scripts/setup'
+
+# Add this inside your target block
+
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
@@ -13,10 +20,18 @@ if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
 end
+permissions_path = '../node_modules/react-native-permissions/ios'
 
 target 'Zomato' do
   config = use_native_modules!
 
+  # Add react-native-geolocation-service pod
+
+  setup_permissions([
+    'LocationWhenInUse',
+    # Add any other permissions you need
+  ])
+ 
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.

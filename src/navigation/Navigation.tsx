@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler'; // Must be the first import
+import {GestureHandlerRootView} from 'react-native-gesture-handler'; // Im
 import Login from '@features/auth/Login';
 import SplashScreen from '@features/auth/SplashScreen';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,6 +9,8 @@ import {navigationRef} from '../../utils/NavigationUtils';
 import UserBottomTab from '@features/tabs/UserBottomTab';
 import AnimatedTabs from '@features/tabs/AnimatedTabs';
 import RestaurantScreen from '@features/restaurants/RestaurantScreen';
+import CheckoutScreen from '@features/restaurants/CheckoutScreen';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 const Navigation: FC = () => {
@@ -17,6 +21,7 @@ const Navigation: FC = () => {
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+        <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
         <Stack.Screen
           name="Login"
           component={Login}

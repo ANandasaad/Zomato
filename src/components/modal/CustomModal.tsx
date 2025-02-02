@@ -67,9 +67,9 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     width: '100%',
-    maxHeight: screenHeight * 0.7,
+    maxHeight: screenHeight * 0.9,
 
-    minHeight: 150,
+    minHeight: 400,
     borderRadius: 10,
   },
   modalContent: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     width: '100%',
     maxHeight: screenHeight * 0.7,
-    minHeight: 150,
+    minHeight: 400,
     borderRadius: 10,
   },
   placeholderText: {

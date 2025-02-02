@@ -66,7 +66,7 @@ export const cartSlice = createSlice({
           items: [{...item, quantity: 1, cartPrice: item?.price}],
         });
       }
-      console.log(cart);
+      console.log(cart, 'cart');
     },
     removeCartItem: (
       state,

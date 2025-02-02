@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
-import React, {FC, useCallback, useRef} from 'react';
+import React, {FC, useCallback, useEffect, useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '@states/reduxHook';
 import {useStyles} from 'react-native-unistyles';
 import {foodStyles} from '../../../unistyles/foodStyles';
@@ -25,6 +25,7 @@ const AddButton: FC<{item: any; restaurant: any}> = ({item, restaurant}) => {
   const cart = useAppSelector(
     selectRestaurantCartItem(restaurant?.id, item?.id),
   );
+
   const openAddModal = () => {
     modelRef.current?.openModal(
       <AddItemModal
@@ -56,16 +57,16 @@ const AddButton: FC<{item: any; restaurant: any}> = ({item, restaurant}) => {
   const removeCartHandler = useCallback(() => {
     if (item?.isCustomizable) {
       if (cart != null) {
-        console.log('open modal');
-
-        return;
+        dispatch(
+          removeCartItem({restaurant_id: restaurant?.id, itemId: item.id}),
+        );
       }
     } else {
       dispatch(
         removeCartItem({restaurant_id: restaurant?.id, itemId: item.id}),
       );
     }
-  }, [dispatch, item, restaurant]);
+  }, [dispatch, item, restaurant, cart]);
   return (
     <>
       <CustomModal ref={modelRef} />
