@@ -1,7 +1,5 @@
 import {
   View,
-  Text,
-  SafeAreaView,
   Platform,
   StatusBar,
   Image,
@@ -40,7 +38,7 @@ const Login = () => {
         useNativeDriver: true,
       }).start();
     }
-  }, [keyboardOffsetHeight]);
+  }, [animatedValue, keyboardOffsetHeight]);
   const handleLogin = async () => {
     setLoading(true);
     // implement login logic
