@@ -15,6 +15,7 @@ const CartBottomBar: FC<{cart: any; totalCartPrice: number}> = ({
   totalCartPrice,
 }) => {
   const {styles} = useStyles(restaurantHeaderStyles);
+  console.log(1);
 
   const translateY = useSharedValue(100);
   useEffect(() => {
