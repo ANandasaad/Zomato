@@ -11,6 +11,7 @@ import AnimatedTabs from '@features/tabs/AnimatedTabs';
 import RestaurantScreen from '@features/restaurants/RestaurantScreen';
 import CheckoutScreen from '@features/restaurants/CheckoutScreen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import VerifyScreen from '@features/auth/VerifyScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation: FC = () => {
@@ -25,6 +26,13 @@ const Navigation: FC = () => {
         <Stack.Screen
           name="Login"
           component={Login}
+          options={{
+            animation: 'fade',
+          }}
+        />
+        <Stack.Screen
+          name="VerifyScreen"
+          component={VerifyScreen}
           options={{
             animation: 'fade',
           }}

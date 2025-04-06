@@ -1,4 +1,4 @@
-import {View, Text, Pressable, TextInput} from 'react-native';
+import {View,  Pressable, TextInput} from 'react-native';
 import React, {FC} from 'react';
 import {useStyles} from 'react-native-unistyles';
 import {phoneStyles} from '../../../unistyles/phoneStyles';

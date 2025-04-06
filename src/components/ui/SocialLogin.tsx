@@ -11,7 +11,7 @@ const SocialLogin: FC = () => {
   return (
     <View style={styles.socialContainer}>
       <TouchableOpacity style={styles.iconContainer}>
-       <GoogleSignSection/>
+        <GoogleSignSection />
       </TouchableOpacity>
       <TouchableOpacity style={styles.iconContainer}>
         {/* <Icons
@@ -20,7 +20,7 @@ const SocialLogin: FC = () => {
           size={RFValue(18)}
           color="#222"
         /> */}
-        <AppleSignInSection/>
+        <AppleSignInSection />
       </TouchableOpacity>
       <TouchableOpacity style={styles.iconContainer}>
         <Icons

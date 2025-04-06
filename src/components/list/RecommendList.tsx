@@ -15,9 +15,33 @@ import {navigate} from '../../../utils/NavigationUtils';
 import CustomText from '@components/global/CustomText';
 import {Colors} from '../../../unistyles/Constants';
 import CustomGradient from '@components/global/CustomGradient';
+import {useQuery} from '@tanstack/react-query';
+import axios from 'axios';
 
 const RecommendList = () => {
   const {styles} = useStyles(cardStyles);
+
+  const {data, isLoading} = useQuery({
+    queryKey: ['recommendedListData'],
+    queryFn: async () => {
+      try {
+        const response = await axios.get(
+          'https://cad6-146-196-38-174.ngrok-free.app/api/v1/restaurant',
+          {
+            headers: {
+              Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6MjZ9LCJpYXQiOjE3NDM5Mzg0MjksImV4cCI6MTc0NDAyNDgyOX0.9AFOPpaw-tBmMSsbYjs3CXFdzJ6SH5V-7QPRLxJSOzE'}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        return response.data.data;
+      } catch (error) {
+        console.error('Error fetching recommended list data:', error);
+        throw error;
+      }
+    },
+  });
+  console.log('Recommended List Data:', data);
   const renderItem = ({item}: any) => (
     <ScalePress
       style={styles.itemContainer}
@@ -25,7 +49,7 @@ const RecommendList = () => {
         navigate('RestaurantScreen', {item: item});
       }}>
       <View style={styles.imageContainer}>
-        <Image source={{uri: item.imageUrl}} style={styles.itemImage} />
+        <Image source={{uri: item.image}} style={styles.itemImage} />
         {item?.discount && (
           <View style={styles.discountContainer}>
             <CustomText
@@ -81,7 +105,7 @@ const RecommendList = () => {
     <ScrollView horizontal showsVerticalScrollIndicator={false}>
       <FlatList
         numColumns={Math.ceil(recommendedListData?.length / 2)}
-        data={recommendedListData}
+        data={data}
         renderItem={renderItem}
         keyExtractor={item => item?.id?.toString()}
         scrollEnabled={false}

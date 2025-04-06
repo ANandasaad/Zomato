@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {View, Text, Platform} from 'react-native';
 import React from 'react';
 import {homeStyles} from '../../../unistyles/homeStyles';
